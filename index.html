@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Miau Delivery · Thiago & Nani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF0FF; --paper:#FFFFFF; --ink:#2E2A4F; --soft:#6B6790;
+  --lilac:#A79BF2; --lilac-d:#7D6FE0; --pink:#FFB3C7; --butter:#FFE08A;
+  --good:#5CC9A7; --bad:#FF8A8A; --meh:#F7C25C; --line:#DCD9F5;
+  --shadow:0 6px 0 #D5D1F7;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1D1A33; --paper:#2A2647; --ink:#F1EEFF; --soft:#B3AED6;
+    --lilac:#9A8CF0; --lilac-d:#B9AEFF; --line:#3D3864; --shadow:0 6px 0 #15122A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1D1A33; --paper:#2A2647; --ink:#F1EEFF; --soft:#B3AED6;
+  --lilac:#9A8CF0; --lilac-d:#B9AEFF; --line:#3D3864; --shadow:0 6px 0 #15122A;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.5;
+  background-image:radial-gradient(var(--line) 1.5px,transparent 1.5px);background-size:22px 22px}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 120px}
+h1,h2,.hand{font-family:"Gaegu","Comic Sans MS",cursive}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--lilac-d);outline-offset:2px;border-radius:8px}
+
+/* hero */
+.hero{position:relative;text-align:center;padding:8px 0 4px}
+.hero svg.cat{width:170px;height:auto;display:block;margin:0 auto -6px}
+.hero h1{font-size:3rem;line-height:1;margin:0;font-weight:700;letter-spacing:-.5px}
+.hero p{margin:6px 0 0;color:var(--soft);font-size:1.05rem}
+.tail{animation:wag 2.4s ease-in-out infinite;transform-origin:150px 120px}
+@keyframes wag{0%,100%{transform:rotate(0)}50%{transform:rotate(-12deg)}}
+.eye{animation:blink 5s infinite;transform-origin:center;transform-box:fill-box}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@media (prefers-reduced-motion:reduce){.tail,.eye{animation:none}}
+
+/* stats */
+.stats{display:flex;gap:10px;margin:22px 0 14px}
+.stat{flex:1;background:var(--paper);border:2px solid var(--line);border-radius:18px;padding:10px 8px;text-align:center}
+.stat b{display:block;font-family:"Gaegu",cursive;font-size:2rem;line-height:1}
+.stat span{font-size:.82rem;color:var(--soft)}
+.stat.g b{color:var(--good)} .stat.b b{color:var(--bad)}
+
+/* toolbar */
+.search{width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--line);background:var(--paper);outline:none}
+.search:focus{border-color:var(--lilac)}
+.tabs{display:flex;gap:8px;margin:12px 0 18px;overflow-x:auto;padding-bottom:4px}
+.tab{border:2px solid var(--line);background:var(--paper);padding:6px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;font-weight:600;font-size:.92rem}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* cards */
+.list{display:grid;gap:16px}
+.card{background:var(--paper);border:2px solid var(--line);border-radius:22px;padding:16px 16px 14px;box-shadow:var(--shadow);position:relative;cursor:pointer;text-align:left;width:100%}
+.card .ears{position:absolute;top:-14px;left:22px;display:flex;gap:30px;pointer-events:none}
+.card .ears i{width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-bottom:16px solid var(--line)}
+.card .top{display:flex;gap:12px;align-items:flex-start}
+.card .mood{width:52px;height:52px;flex:none}
+.card h3{margin:0;font-size:1.2rem;font-weight:800;line-height:1.2;word-break:break-word}
+.card .dish{color:var(--soft);font-size:.9rem;margin-top:2px}
+.badge{display:inline-block;margin-top:6px;padding:2px 10px;border-radius:999px;font-weight:800;font-size:.8rem;color:#2E2A4F}
+.badge.good{background:var(--good)} .badge.bad{background:var(--bad)} .badge.meh{background:var(--meh)} .badge.none{background:var(--line);color:var(--soft)}
+.who{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center;margin-top:12px;font-size:.92rem}
+.who .n{font-weight:700}
+.paws{display:inline-flex;gap:2px}
+.paws svg{width:20px;height:20px}
+.note{margin:10px 0 0;padding:8px 12px;border-radius:12px;background:var(--bg);font-size:.9rem;color:var(--ink);font-family:"Gaegu",cursive;font-size:1.1rem;line-height:1.3}
+
+.empty{text-align:center;padding:30px 16px;color:var(--soft)}
+.empty svg{width:120px;display:block;margin:0 auto 6px}
+.empty b{display:block;color:var(--ink);font-family:"Gaegu",cursive;font-size:1.6rem}
+
+/* fab */
+.fab{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));border:none;background:var(--lilac-d);color:#fff;font-weight:800;padding:14px 26px;border-radius:999px;font-size:1.05rem;box-shadow:0 6px 0 #5A4CC0;cursor:pointer;display:flex;align-items:center;gap:8px}
+:root[data-theme="dark"] .fab, .fab{color:#fff}
+.fab:active{transform:translateX(-50%) translateY(3px);box-shadow:0 3px 0 #5A4CC0}
+
+/* sheet */
+dialog{border:none;padding:0;background:transparent;max-width:min(560px,100vw);width:100%;margin:auto auto 0}
+dialog::backdrop{background:rgba(30,26,60,.45)}
+.sheet{background:var(--paper);color:var(--ink);border-radius:26px 26px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom,0px));max-height:90vh;overflow:auto}
+@media (min-width:600px){dialog{margin:auto}.sheet{border-radius:26px}}
+.sheet h2{margin:0 0 12px;font-size:2rem;line-height:1}
+.field{margin-bottom:14px}
+.field label,.field .lbl{display:block;font-weight:700;font-size:.92rem;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:11px 14px;border-radius:14px;border:2px solid var(--line);background:var(--bg);outline:none}
+.field input:focus,.field textarea:focus{border-color:var(--lilac)}
+textarea{resize:vertical;min-height:70px}
+.rate{display:flex;gap:6px;align-items:center}
+.rate button{border:none;background:none;padding:2px;cursor:pointer}
+.rate button svg{width:34px;height:34px;transition:transform .12s}
+.rate button:active svg{transform:scale(.85)}
+.rate .clear{font-size:.8rem;color:var(--soft);text-decoration:underline;margin-left:auto}
+.row{display:flex;gap:10px;margin-top:6px}
+.btn{flex:1;border:2px solid var(--line);background:var(--paper);padding:12px;border-radius:14px;font-weight:800;cursor:pointer}
+.btn.primary{background:var(--lilac-d);border-color:var(--lilac-d);color:#fff}
+.btn.danger{flex:none;color:var(--bad);border-color:var(--bad);background:transparent}
+.toast{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top,0px));transform:translate(-50%,-150%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;transition:transform .25s;z-index:10;white-space:nowrap}
+.toast.show{transform:translate(-50%,0)}
+.sync{font-size:.78rem;color:var(--soft);text-align:center;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <svg class="cat" viewBox="0 0 200 140" aria-hidden="true">
+      <path class="tail" d="M150 120 C185 118 190 80 172 70" fill="none" stroke="#7D6FE0" stroke-width="12" stroke-linecap="round"/>
+      <ellipse cx="100" cy="112" rx="58" ry="28" fill="#A79BF2"/>
+      <path d="M52 64 L58 22 L82 46 Z" fill="#A79BF2"/><path d="M148 64 L142 22 L118 46 Z" fill="#A79BF2"/>
+      <path d="M60 52 L62 32 L74 45 Z" fill="#FFB3C7"/><path d="M140 52 L138 32 L126 45 Z" fill="#FFB3C7"/>
+      <ellipse cx="100" cy="72" rx="52" ry="40" fill="#A79BF2"/>
+      <ellipse class="eye" cx="80" cy="70" rx="6" ry="8" fill="#2E2A4F"/><ellipse class="eye" cx="120" cy="70" rx="6" ry="8" fill="#2E2A4F"/>
+      <circle cx="82" cy="67" r="2" fill="#fff"/><circle cx="122" cy="67" r="2" fill="#fff"/>
+      <path d="M96 82 L104 82 L100 87 Z" fill="#FFB3C7"/>
+      <path d="M100 87 Q94 94 88 90 M100 87 Q106 94 112 90" fill="none" stroke="#2E2A4F" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="68" cy="84" rx="8" ry="5" fill="#FFB3C7" opacity=".7"/><ellipse cx="132" cy="84" rx="8" ry="5" fill="#FFB3C7" opacity=".7"/>
+      <g stroke="#2E2A4F" stroke-width="1.5" stroke-linecap="round"><path d="M60 80 L40 76"/><path d="M60 86 L40 88"/><path d="M140 80 L160 76"/><path d="M140 86 L160 88"/></g>
+      <!-- bowl -->
+      <path d="M62 116 Q100 146 138 116 Z" fill="#FFE08A" stroke="#2E2A4F" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M72 116 Q80 106 90 114 Q100 104 110 114 Q120 106 128 116" fill="#FFB3C7"/>
+    </svg>
+    <h1>Miau Delivery</h1>
+    <p>Onde Thiago e Nani já pediram, e se vale pedir de novo.</p>
+  </header>
+
+  <section class="stats" aria-label="Resumo">
+    <div class="stat"><b id="sTotal">0</b><span>lugares</span></div>
+    <div class="stat g"><b id="sGood">0</b><span>pedir de novo</span></div>
+    <div class="stat b"><b id="sBad">0</b><span>nunca mais</span></div>
+  </section>
+
+  <input class="search" id="q" type="search" placeholder="Buscar restaurante…" aria-label="Buscar restaurante">
+  <div class="tabs" role="group" aria-label="Filtro">
+    <button class="tab" data-f="all" aria-pressed="true">Todos</button>
+    <button class="tab" data-f="good" aria-pressed="false">😻 Pedir de novo</button>
+    <button class="tab" data-f="meh" aria-pressed="false">😼 Talvez</button>
+    <button class="tab" data-f="bad" aria-pressed="false">🙀 Nunca mais</button>
+  </div>
+
+  <main class="list" id="list"></main>
+  <p class="sync" id="sync">Carregando…</p>
+</div>
+
+<button class="fab" id="add"><span aria-hidden="true">🐾</span> Novo lugar</button>
+
+<dialog id="dlg">
+  <form class="sheet" id="form" method="dialog">
+    <h2 id="dlgTitle">Novo lugar</h2>
+    <div class="field"><label for="fName">Restaurante</label><input id="fName" required maxlength="80" placeholder="Ex: Burguer do Zé"></div>
+    <div class="field"><label for="fDish">O que pedimos</label><input id="fDish" maxlength="120" placeholder="Ex: X-bacon e batata"></div>
+    <div class="field"><span class="lbl">Nota do Thiago</span><div class="rate" data-who="thiago"></div></div>
+    <div class="field"><span class="lbl">Nota da Nani</span><div class="rate" data-who="nani"></div></div>
+    <div class="field"><label for="fNote">Observação</label><textarea id="fNote" maxlength="300" placeholder="Ex: chegou frio, mas o molho é top"></textarea></div>
+    <div class="row">
+      <button type="button" class="btn danger" id="del" hidden>Apagar</button>
+      <button type="button" class="btn" id="cancel">Cancelar</button>
+      <button type="submit" class="btn primary" id="save">Salvar</button>
+    </div>
+  </form>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const LS = 'miau-delivery-v1';
+  let items = [];        // {id,name,dish,thiago,nani,note,createdAt}
+  let filter = 'all', query = '';
+  let editing = null, draft = {thiago:0, nani:0};
+  let col = null;        // db collection or null (local mode)
+
+  const paw = (on, size) => `<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="${on ? 'var(--pink)' : 'var(--line)'}" stroke="${on ? '#E07A98' : 'none'}" stroke-width="1"><ellipse cx="12" cy="16" rx="5" ry="4.2"/><ellipse cx="5.5" cy="10.5" rx="2.2" ry="2.8"/><ellipse cx="9.5" cy="6.5" rx="2.2" ry="2.8"/><ellipse cx="14.5" cy="6.5" rx="2.2" ry="2.8"/><ellipse cx="18.5" cy="10.5" rx="2.2" ry="2.8"/></g></svg>`;
+
+  const moodCat = v => {
+    const c = v==='good' ? '#5CC9A7' : v==='bad' ? '#FF8A8A' : v==='meh' ? '#F7C25C' : '#C9C4EE';
+    let face;
+    if (v==='good') face = '<path d="M17 25 Q20 22 23 25 M29 25 Q32 22 35 25" stroke="#2E2A4F" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M22 32 Q26 37 30 32" stroke="#2E2A4F" stroke-width="2" fill="none" stroke-linecap="round"/>';
+    else if (v==='bad') face = '<circle cx="20" cy="25" r="3.2" fill="#2E2A4F"/><circle cx="32" cy="25" r="3.2" fill="#2E2A4F"/><ellipse cx="26" cy="34" rx="2.6" ry="3.2" fill="#2E2A4F"/>';
+    else if (v==='meh') face = '<path d="M17 25 L23 25 M29 25 L35 25" stroke="#2E2A4F" stroke-width="2.2" stroke-linecap="round"/><path d="M22 33 L30 33" stroke="#2E2A4F" stroke-width="2" stroke-linecap="round"/>';
+    else face = '<circle cx="20" cy="25" r="2" fill="#2E2A4F"/><circle cx="32" cy="25" r="2" fill="#2E2A4F"/><path d="M24 32 Q26 34 28 32" stroke="#2E2A4F" stroke-width="2" fill="none"/>';
+    return `<svg class="mood" viewBox="0 0 52 52" aria-hidden="true"><path d="M8 20 L10 4 L20 13 Z M44 20 L42 4 L32 13 Z" fill="${c}"/><circle cx="26" cy="28" r="20" fill="${c}"/>${face}</svg>`;
+  };
+
+  function verdict(it){
+    const r = [it.thiago, it.nani].filter(n => n > 0);
+    if (!r.length) return 'none';
+    const avg = r.reduce((a,b)=>a+b,0) / r.length;
+    return avg >= 3.5 ? 'good' : avg <= 2 ? 'bad' : 'meh';
+  }
+  const LABEL = {good:'😻 Pedir de novo', meh:'😼 Talvez', bad:'🙀 Nunca mais', none:'Sem nota ainda'};
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const pawRow = n => `<span class="paws" aria-label="${n ? n+' de 5' : 'sem nota'}">${[1,2,3,4,5].map(i=>paw(i<=n)).join('')}</span>`;
+
+  function render(){
+    const withV = items.map(it => ({...it, v: verdict(it)}));
+    $('#sTotal').textContent = withV.length;
+    $('#sGood').textContent = withV.filter(i=>i.v==='good').length;
+    $('#sBad').textContent = withV.filter(i=>i.v==='bad').length;
+
+    const q = query.trim().toLowerCase();
+    const shown = withV
+      .filter(i => filter==='all' || i.v===filter)
+      .filter(i => !q || (i.name+' '+(i.dish||'')+' '+(i.note||'')).toLowerCase().includes(q))
+      .sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+
+    const list = $('#list');
+    if (!shown.length){
+      const none = !items.length;
+      list.innerHTML = `<div class="empty"><svg viewBox="0 0 120 70" aria-hidden="true"><path d="M20 60 Q60 20 100 60 Z" fill="#A79BF2"/><path d="M34 44 L38 24 L48 38 Z M86 44 L82 24 L72 38 Z" fill="#A79BF2"/><path d="M48 50 Q52 47 56 50 M64 50 Q68 47 72 50" stroke="#2E2A4F" stroke-width="2.5" fill="none" stroke-linecap="round"/><text x="92" y="22" font-family="Gaegu,cursive" font-size="16" fill="#7D6FE0">z z</text></svg><b>${none ? 'Nenhum lugar ainda' : 'Nada por aqui'}</b>${none ? 'Toque em “Novo lugar” depois do próximo lanche.' : 'Tente outra busca ou outro filtro.'}</div>`;
+      return;
+    }
+    list.innerHTML = shown.map(i => `
+      <button class="card" data-id="${esc(i.id)}" aria-label="Editar ${esc(i.name)}">
+        <span class="ears" aria-hidden="true"><i></i><i></i></span>
+        <div class="top">${moodCat(i.v)}
+          <div><h3>${esc(i.name)}</h3>${i.dish ? `<div class="dish">${esc(i.dish)}</div>` : ''}<span class="badge ${i.v}">${LABEL[i.v]}</span></div>
+        </div>
+        <div class="who"><span class="n">Thiago</span>${pawRow(i.thiago||0)}<span class="n">Nani</span>${pawRow(i.nani||0)}</div>
+        ${i.note ? `<p class="note">“${esc(i.note)}”</p>` : ''}
+      </button>`).join('');
+  }
+
+  // ---- rating widgets
+  function drawRate(){
+    document.querySelectorAll('.rate').forEach(el => {
+      const who = el.dataset.who, val = draft[who];
+      el.innerHTML = [1,2,3,4,5].map(n => `<button type="button" data-n="${n}" aria-label="${n} patinha${n>1?'s':''}" aria-pressed="${n===val}">${paw(n<=val)}</button>`).join('')
+        + (val ? `<button type="button" class="clear" data-n="0">limpar</button>` : '');
+    });
+  }
+  document.querySelectorAll('.rate').forEach(el => el.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    draft[el.dataset.who] = +b.dataset.n; drawRate();
+  }));
+
+  // ---- dialog
+  const dlg = $('#dlg');
+  function openForm(it){
+    editing = it || null;
+    $('#dlgTitle').textContent = it ? 'Editar lugar' : 'Novo lugar';
+    $('#fName').value = it?.name || ''; $('#fDish').value = it?.dish || ''; $('#fNote').value = it?.note || '';
+    draft = {thiago: it?.thiago || 0, nani: it?.nani || 0};
+    $('#del').hidden = !it; drawRate();
+    dlg.showModal(); if (!it) setTimeout(()=>$('#fName').focus(), 50);
+  }
+  $('#add').onclick = () => openForm();
+  $('#cancel').onclick = () => dlg.close();
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  $('#list').addEventListener('click', e => {
+    const c = e.target.closest('.card'); if (!c) return;
+    openForm(items.find(i => i.id === c.dataset.id));
+  });
+
+  $('#form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const name = $('#fName').value.trim(); if (!name) return;
+    const data = { name, dish: $('#fDish').value.trim(), note: $('#fNote').value.trim(),
+      thiago: draft.thiago, nani: draft.nani, createdAt: editing?.createdAt || Date.now() };
+    dlg.close();
+    try {
+      if (col){ editing ? await col.doc(editing.id).set(data) : await col.add(data); }
+      else {
+        if (editing) Object.assign(items.find(i=>i.id===editing.id), data);
+        else items.push({id: 'l'+Date.now(), ...data});
+        saveLocal(); render();
+      }
+      toast(editing ? 'Lugar atualizado 🐾' : 'Lugar salvo 🐾');
+    } catch(err){ toast('Não deu pra salvar. Tente de novo.'); }
+  });
+
+  $('#del').onclick = async () => {
+    if (!editing || !confirm(`Apagar “${editing.name}”?`)) return;
+    dlg.close();
+    try {
+      if (col) await col.doc(editing.id).delete();
+      else { items = items.filter(i => i.id !== editing.id); saveLocal(); render(); }
+      toast('Lugar apagado');
+    } catch(err){ toast('Não deu pra apagar.'); }
+  };
+
+  // ---- filters
+  document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
+    filter = t.dataset.f;
+    document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-pressed', x === t));
+    render();
+  });
+  $('#q').addEventListener('input', e => { query = e.target.value; render(); });
+
+  let tt; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),2000); }
+
+  // ---- storage
+  function loadLocal(){ try { items = JSON.parse(localStorage.getItem(LS)) || []; } catch(e){ items = []; } }
+  function saveLocal(){ try { localStorage.setItem(LS, JSON.stringify(items)); } catch(e){} }
+
+  loadLocal(); render();
+  $('#sync').textContent = 'Salvo só neste aparelho 🐾';
+
+  (async () => {
+    try {
+      if (!window.claude || !claude.use) return;
+      const db = await claude.use('db');
+      if (!db) return;
+      col = db.collection('lugares');
+      col.onSnapshot(snap => {
+        items = snap.docs.map(d => ({id: d.id, ...d.data()}));
+        $('#sync').textContent = 'Sincronizado entre Thiago e Nani 💜';
+        render();
+      }, () => { $('#sync').textContent = 'Sem conexão com a lista compartilhada.'; });
+    } catch(e){}
+  })();
+})();
+</script>
+</body>
+</html>
